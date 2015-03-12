@@ -550,6 +550,7 @@ public class Start extends JFrame {
 			neueinsteigerPnl.add(neueinsteigerReEntry[i]);
 			neueinsteigerReEntry[i].setBounds(380 + width * (i / numberOfNeueinsteigerPerPage), 10 + 30 * (i % numberOfNeueinsteigerPerPage), 50, 25);
 			neueinsteigerReEntry[i].setText("WE");
+			neueinsteigerReEntry[i].setFocusable(false);
 			neueinsteigerReEntry[i].addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					searchForSimilarSong(x);
