@@ -95,8 +95,8 @@ public class Start extends JFrame {
 
 	private Rectangle REC_CHARTSANZEIGEN = new Rectangle(50, 50, 1350, 750);
 	
-	private Rectangle REC_LBLWOCHE = new Rectangle(20, 50, 150, 30);
-	private Rectangle REC_CBWOCHE = new Rectangle(170, 50, 100, 30);//50);
+	private Rectangle REC_LBLWOCHE = new Rectangle(20, 50, 160, 30);
+	private Rectangle REC_CBWOCHE = new Rectangle(180, 50, 130, 30);//50);
 	
 	private Rectangle REC_PANEL = new Rectangle(50, 50, 1300, 600);
 	private Rectangle REC_WOCHE = new Rectangle(50, 10, 200, 30);
