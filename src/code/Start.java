@@ -533,7 +533,7 @@ public class Start extends JFrame {
 			neueinsteigerCHP[i] = new JLabel();
 			neueinsteigerPnl.add(neueinsteigerCHP[i]);
 			neueinsteigerCHP[i].setBounds(10 + width * (i / numberOfNeueinsteigerPerPage), 10 + 30 * (i % numberOfNeueinsteigerPerPage), 25, 25);
-			neueinsteigerCHP[i].setText("" + (neueinsteiger[i] + 1));
+			neueinsteigerCHP[i].setText("" + (neueinsteiger[i]));
 			neueinsteigerCHP[i].setHorizontalAlignment(SwingConstants.CENTER);
 			neueinsteigerCHP[i].setOpaque(true);
 			
