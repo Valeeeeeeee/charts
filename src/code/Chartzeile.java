@@ -35,14 +35,14 @@ public class Chartzeile extends JPanel {
 		super();
 		this.id = id;
 		this.start = start;
-		all_ranks = new int[start.getAnzahlWochen()];
+		all_ranks = new int[Start.getAnzahlWochen()];
 		initGUI();
 	}
 	
 	public Chartzeile(String daten, Start start) {
 		super();
 		this.start = start;
-		all_ranks = new int[start.getAnzahlWochen()];
+		all_ranks = new int[Start.getAnzahlWochen()];
 		fromString(daten);
 		initGUI();
 	}
@@ -151,7 +151,7 @@ public class Chartzeile extends JPanel {
 	}
 	
 	public void setRankInWeek(int rank, int week) {
-		if (week >= 0 && week < start.getAnzahlWochen()) {
+		if (week >= 0 && week < Start.getAnzahlWochen()) {
 			if (rank > 0 && rank <= 100) {
 				if (this.first_charted_week == -1) {
 					this.first_charted_week = week;
@@ -273,8 +273,10 @@ public class Chartzeile extends JPanel {
 		alledaten = alledaten + "FCW*" + this.first_charted_week + ";";
 		alledaten = alledaten + "LCW*" + this.latest_charted_week + ";";
 		alledaten = alledaten + "HR*" + this.highest_rank + ";";
-		for (int i = 0; i < start.getAnzahlWochen(); i++) {
-			alledaten = alledaten + "RW" + i + "*" + this.all_ranks[i] + "*W" + i + ";";
+		for (int i = 0; i < Start.getAnzahlWochen(); i++) {
+			if (all_ranks[i] > 0 && all_ranks[i] < 200) {
+				alledaten = alledaten + "RW" + i + "*" + this.all_ranks[i] + ";";
+			}
 		}
 		alledaten = alledaten + "***";
 		return alledaten;
@@ -288,10 +290,18 @@ public class Chartzeile extends JPanel {
 		this.latest_charted_week = Integer.parseInt(daten.substring(daten.indexOf("LCW*") + 4, daten.indexOf(";HR")));
 		this.highest_rank = Integer.parseInt(daten.substring(daten.indexOf("HR*") + 3, daten.indexOf(";RW")));
 		String[] ranks = daten.substring(daten.indexOf(";RW") + 1).split(";");
-		for (int i = 0; i < ranks.length - 1; i++) {
-			this.all_ranks[i] = Integer.parseInt(daten.substring(daten.indexOf("RW" + i + "*") + ("RW" + i + "*").length(), daten.indexOf("*W" + i)));
-			if (this.all_ranks[i] > 0 && this.all_ranks[i] < 200)		countWeeksCharted++;
+		for (int week = 0; week < Start.getAnzahlWochen(); week++) {
+			this.all_ranks[week] = 200;
 		}
+		for (String string : ranks) {
+			if (!string.equals("***")) {
+				String[] strings = string.replaceAll("R|W", "").split("\\*");
+				int week = Integer.parseInt(strings[0]);
+				this.all_ranks[week] = Integer.parseInt(strings[1]);
+				if (this.all_ranks[week] > 0 && this.all_ranks[week] < 200)		countWeeksCharted++;
+			}
+		}
+		
 		validateHighRank();
 		aktualisierenDerFCWundDerLCW();
 	}
