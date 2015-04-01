@@ -95,8 +95,8 @@ public class Start extends JFrame {
 
 	private Rectangle REC_CHARTSANZEIGEN = new Rectangle(50, 50, 1350, 750);
 	
-	private Rectangle REC_LBLWOCHE = new Rectangle(20, 50, 150, 30);
-	private Rectangle REC_CBWOCHE = new Rectangle(170, 50, 100, 30);//50);
+	private Rectangle REC_LBLWOCHE = new Rectangle(20, 50, 160, 30);
+	private Rectangle REC_CBWOCHE = new Rectangle(180, 50, 130, 30);//50);
 	
 	private Rectangle REC_PANEL = new Rectangle(50, 50, 1300, 600);
 	private Rectangle REC_WOCHE = new Rectangle(50, 10, 200, 30);
@@ -533,7 +533,7 @@ public class Start extends JFrame {
 			neueinsteigerCHP[i] = new JLabel();
 			neueinsteigerPnl.add(neueinsteigerCHP[i]);
 			neueinsteigerCHP[i].setBounds(10 + width * (i / numberOfNeueinsteigerPerPage), 10 + 30 * (i % numberOfNeueinsteigerPerPage), 25, 25);
-			neueinsteigerCHP[i].setText("" + (neueinsteiger[i] + 1));
+			neueinsteigerCHP[i].setText("" + (neueinsteiger[i]));
 			neueinsteigerCHP[i].setHorizontalAlignment(SwingConstants.CENTER);
 			neueinsteigerCHP[i].setOpaque(true);
 			
