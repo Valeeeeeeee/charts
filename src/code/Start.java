@@ -26,10 +26,10 @@ public class Start extends JFrame {
 	private DefaultListModel jListCSVModel = new DefaultListModel();
 
 	private String config;
-	private DefaultListModel jListConfigModel = new DefaultListModel();
+	private ArrayList<String> listConfig = new ArrayList<>();
 
 	private String daten;
-	private DefaultListModel jListDatenModel = new DefaultListModel();
+	private ArrayList<String> listDaten = new ArrayList<>();
 
 	private int anzahlLieder;
 	private static int anzahl_wochen;
@@ -40,6 +40,7 @@ public class Start extends JFrame {
 	private static int[] datum;
 	public static int startdate;
 	private int editedWeek;
+	private static int latestEnteredWeek;
 
 	// Charts erneuern
 	private int aktuellerChartplatz = 1;
@@ -1179,27 +1180,33 @@ public class Start extends JFrame {
 		return anzahl_wochen;
 	}
 	
+	public static int getLatestEnteredWeek() {
+		return latestEnteredWeek;
+	}
+	
 	private void datenLaden() {
 		daten = workspace + File.separator + "daten.txt";
-		ausDatei(daten, jListDatenModel);
-		anzahlLieder = jListDatenModel.getSize();
+		ausDatei(daten, listDaten);
+		latestEnteredWeek = Integer.parseInt((String) listDaten.remove(0));
+		anzahlLieder = listDaten.size();
 		chartZeilen = new Chartzeile[anzahlLieder];
 		for (int i = 0; i < chartZeilen.length; i++) {
-			chartZeilen[i] = new Chartzeile((String) jListDatenModel.get(i), this);
+			chartZeilen[i] = new Chartzeile((String) listDaten.get(i), this);
 		}
 	}
 
 	public void datenSchreiben() {
-		jListDatenModel.clear();
+		listDaten.clear();
+		listDaten.add("" + latestEnteredWeek);
 		for (int i = 0; i < chartZeilen.length; i++) {
-			jListDatenModel.addElement(chartZeilen[i].toString());
+			listDaten.add(chartZeilen[i].toString());
 		}
 
-		inDatei(daten, jListDatenModel);
+		inDatei(daten, listDaten);
 	}
 
 	// Aus und in Dateien lesen/schreiben
-	public void ausDatei(String dateiname, DefaultListModel model) {
+	public void ausDatei(String dateiname, ArrayList<String> list) {
 		try {
 			File datei = new File(dateiname);
 			BufferedReader in = null;
@@ -1210,9 +1217,9 @@ public class Start extends JFrame {
 				String element;
 				try {
 					in = new BufferedReader(new InputStreamReader(new FileInputStream(dateiname), "UTF-8"));
-					model.clear();
+					list.clear();
 					while ((element = in.readLine()) != null && !element.isEmpty()) {
-						model.addElement(element);
+						list.add(element);
 					}
 				} catch (Exception e) {
 					log("Fehler beim Laden!");
@@ -1233,13 +1240,13 @@ public class Start extends JFrame {
 		}
 	}
 
-	private void inDatei(String dateiname, DefaultListModel model) {
+	private void inDatei(String dateiname, ArrayList<String> list) {
 		try {
 			BufferedWriter out = null;
 			try {
 				out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dateiname), "UTF-8"));
-				for (int i = 0; i < model.getSize(); i++) {
-					out.write(model.get(i).toString());
+				for (int i = 0; i < list.size(); i++) {
+					out.write(list.get(i).toString());
 					out.newLine();
 				}
 			} catch (Exception e) {
@@ -1260,7 +1267,7 @@ public class Start extends JFrame {
 	
 	private void loadConfiguration() {
 		config = workspace + File.separator + "config.txt";
-		ausDatei(config, jListConfigModel);
+		ausDatei(config, listConfig);
 
 //		int counter = 0; TODO
 
@@ -1276,7 +1283,7 @@ public class Start extends JFrame {
 	private void writeConfiguration() {
 //		int counter = 0; TODO
 
-		inDatei(config, jListConfigModel);
+		inDatei(config, listConfig);
 	}
 
 	private void checkOS() {

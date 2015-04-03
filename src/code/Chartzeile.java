@@ -290,7 +290,7 @@ public class Chartzeile extends JPanel {
 		this.latest_charted_week = Integer.parseInt(daten.substring(daten.indexOf("LCW*") + 4, daten.indexOf(";HR")));
 		this.highest_rank = Integer.parseInt(daten.substring(daten.indexOf("HR*") + 3, daten.indexOf(";RW")));
 		String[] ranks = daten.substring(daten.indexOf(";RW") + 1).split(";");
-		for (int week = 0; week < Start.getAnzahlWochen(); week++) {
+		for (int week = 0; week < Start.getLatestEnteredWeek(); week++) {
 			this.all_ranks[week] = 200;
 		}
 		for (String string : ranks) {
