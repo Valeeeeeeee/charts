@@ -323,7 +323,7 @@ public class Start extends JFrame {
 				chartsneu.add(previewCHZ);
 				previewCHZ.setBounds(REC_PREVIEW);
 				previewCHZ.setHorizontalAlignment(SwingConstants.CENTER);
-				previewCHZ.setText("jgbh");
+				previewCHZ.setText("letzter Song");
 
 				previewCHZ.setVisible(false);
 				previewCHZ.setOpaque(true);
@@ -837,6 +837,7 @@ public class Start extends JFrame {
 		} else {
 			jTFAlterChartplatz.setVisible(true);
 			jLblChartplatz.setVisible(true);
+			previewCHZ.setVisible(true);
 			
 			jTFAlterChartplatz.requestFocus();
 			jLblChartplatz.setText("" + aktuellerChartplatz);
@@ -1031,6 +1032,7 @@ public class Start extends JFrame {
 			chartZeilen[i].validateHighRank();
 			chartZeilen[i].aktualisierenDerFCWundDerLCW();
 		}
+		latestEnteredWeek = editedWeek;
 	}
 	
 	public boolean addSong() {
@@ -1167,13 +1169,7 @@ public class Start extends JFrame {
 	}
 	
 	public int getNextWeek() {
-		int index;
-		for (index = 0; index < anzahl_wochen; index++) {
-			if (chartZeilen[0].getRankOfWeek(index) == 0) {
-				break;
-			}
-		}
-		return index;
+		return latestEnteredWeek + 1;
 	}
 	
 	public static int getAnzahlWochen() {
